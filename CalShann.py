@@ -13,13 +13,15 @@ def calShanonEnt(dataSet):
         labels[currentlabel] = labels.get(currentlabel,0) + 1
 
     ShannonEnt = 0.0
+    Gini = 0.0
     # 计算每个label的出现的概率
     for label in labels:
         this_labelcount = labels[label]
         prober = float(this_labelcount/data_count)
         ShannonEnt -= prober*log(prober,2)
+        Gini += prober * (1-prober)
 
-    return ShannonEnt
+    return ShannonEnt,Gini
 
 
 def calShannonEnt(dataSet):
@@ -43,7 +45,7 @@ def calShannonEnt(dataSet):
     return shannonEnt
 
 def createDataset():
-    dataset = [[1, 1, 'maybe'],
+    dataset = [[1, 1, 'yes'],
                [1, 1, 'yes'],
                [1, 0, 'no'],
                [0, 1, 'no'],
@@ -56,7 +58,7 @@ def createDataset():
 dataset, label = createDataset()
 
 print(dataset)
-print(calShanonEnt(dataset))
+print("Shannon, Gini:",calShanonEnt(dataset))
 
 
 # 切割数据集，比如
